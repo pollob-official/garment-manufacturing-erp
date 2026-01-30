@@ -23,7 +23,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon"
-        href="https://dreamspos.dreamstechnologies.com/html/template/assets/img/favicon.png" />
+        href="{{ asset('assets') }}/favicon.ico" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css" />

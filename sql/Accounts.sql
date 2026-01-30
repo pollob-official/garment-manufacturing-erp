@@ -3,12 +3,9 @@ CREATE TABLE chart_of_accounts (
     account_code VARCHAR(50),
     account_name VARCHAR(255),
     account_type VARCHAR(50),
-    -- account_type ENUM('Asset', 'Liability', 'Equity', 'Income', 'Expense'),
     parent_account_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    -- FOREIGN KEY (parent_account_id) REFERENCES chart_of_accounts(account_id)
-
 );
 
 CREATE TABLE account_types(
@@ -30,9 +27,8 @@ CREATE TABLE accounts_receivable (
     status VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    -- status ENUM('Unpaid', 'Paid', 'Partial') DEFAULT 'Unpaid',
-    -- FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
+
 CREATE TABLE accounts_payable (
     id INT AUTO_INCREMENT PRIMARY KEY,
     vendor_id INT,
@@ -45,8 +41,8 @@ CREATE TABLE accounts_payable (
     status ENUM('Unpaid', 'Paid', 'Partial') DEFAULT 'Unpaid',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    -- FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id)
 );
+
 CREATE TABLE transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     transaction_date DATE,
@@ -56,9 +52,8 @@ CREATE TABLE transactions (
     credit_account_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    -- FOREIGN KEY (debit_account_id) REFERENCES chart_of_accounts(account_id),
-    -- FOREIGN KEY (credit_account_id) REFERENCES chart_of_accounts(account_id)
 );
+
 CREATE TABLE journals (
     id INT AUTO_INCREMENT PRIMARY KEY,
     journal_date DATE,
@@ -68,6 +63,7 @@ CREATE TABLE journals (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 CREATE TABLE journal_entries (
     id INT AUTO_INCREMENT PRIMARY KEY,
     journal_id INT,
@@ -76,9 +72,8 @@ CREATE TABLE journal_entries (
     credit_amount DECIMAL(15, 2) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    -- FOREIGN KEY (journal_id) REFERENCES journals(journal_id),
-    -- FOREIGN KEY (account_id) REFERENCES chart_of_accounts(account_id)
 );
+
 CREATE TABLE general_ledger (
     id INT AUTO_INCREMENT PRIMARY KEY,
     account_id INT,
@@ -86,8 +81,10 @@ CREATE TABLE general_ledger (
     debit_amount DECIMAL(15, 2) DEFAULT 0,
     credit_amount DECIMAL(15, 2) DEFAULT 0,
     balance DECIMAL(15, 2) AS (debit_amount - credit_amount) STORED,
-    FOREIGN KEY (account_id) REFERENCES chart_of_accounts(account_id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 CREATE TABLE bank_accounts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     account_number VARCHAR(50),
@@ -96,6 +93,7 @@ CREATE TABLE bank_accounts (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 CREATE TABLE cost_of_goods_sold (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT,
@@ -105,8 +103,8 @@ CREATE TABLE cost_of_goods_sold (
     sale_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    -- FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
+
 CREATE TABLE financial_statements (
     id INT AUTO_INCREMENT PRIMARY KEY,
     period_start DATE,

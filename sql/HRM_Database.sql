@@ -1,4 +1,3 @@
-
 -- Statuses
 
 CREATE TABLE hrm_statuses (
@@ -26,7 +25,7 @@ CREATE TABLE hrm_attendances_lists (
     total_work_hours DECIMAL(5,2) DEFAULT '0.00',
     overtime_hours TIME DEFAULT '00:00:00',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
@@ -40,7 +39,7 @@ CREATE TABLE hrm_awards (
     award_date DATE NOT NULL,
     description TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
@@ -78,7 +77,7 @@ CREATE TABLE hrm_employee_positions (
     salary DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     statuses_id BIGINT UNSIGNED NOT NULL,
     created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
@@ -89,7 +88,7 @@ CREATE TABLE hrm_designations (
     description TEXT NULL,
     statuses_id BIGINT UNSIGNED NOT NULL,
     created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
@@ -100,7 +99,7 @@ CREATE TABLE hrm_employees (
     employee_id_number VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NULL,
-    gender VARCHAR(20) UNIQUE NULL,
+    gender VARCHAR(20) NULL,
     date_of_birth DATE NULL,
     joining_date DATE NOT NULL,
     bank_account_id INT NOT NULL,
@@ -115,7 +114,7 @@ CREATE TABLE hrm_employees (
     resume  TEXT NULL,
     city VARCHAR(100) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE hrm_employee_bank_accounts (
@@ -127,7 +126,7 @@ CREATE TABLE hrm_employee_bank_accounts (
     branch_name VARCHAR(255),
     branch_location VARCHAR(200),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
@@ -139,13 +138,13 @@ CREATE TABLE hrm_employee_performances (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     appraisal_date DATE NOT NULL,
-    target_achievement , DECIMAL(10,2) NOT NULL,
+    target_achievement DECIMAL(10,2) NOT NULL,
     feedback TEXT NULL,
     goals TEXT NULL,
     subject TEXT NULL,
     branch TEXT NULL,
-    target_rating VARCHAR (200) NOT NULL,
-    overall_rating VARCHAR (200) NOT NULL,
+    target_rating VARCHAR(200) NOT NULL,
+    overall_rating VARCHAR(200) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -159,12 +158,12 @@ CREATE TABLE hrm_weekly_holiday (
     day ENUM('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') NOT NULL,
     company_id BIGINT UNSIGNED NOT NULL,
     created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
 
-CREATE TABLE `hrm_leave_holidays` (
+CREATE TABLE hrm_leave_holidays (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     holiday_name VARCHAR(255) NOT NULL,
     holiday_form_date DATE NOT NULL,
@@ -193,7 +192,7 @@ CREATE TABLE hrm_leave_applications (
     approver_id BIGINT UNSIGNED DEFAULT NULL,
     photo VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
@@ -224,7 +223,7 @@ CREATE TABLE hrm_leave_application_approvers (
     comments  TEXT NULL,
     photo VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
@@ -234,11 +233,11 @@ CREATE TABLE hrm_noticeboards (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    posted_by BIGINT UNSIGNED NOT NULL, -- assuming there's a 'users' table
+    posted_by BIGINT UNSIGNED NOT NULL,
     posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    statuses_id BIGINT UNSIGNED NOT NULL, -- 'active' or 'inactive' status for the notice
-    start_date DATE NULL, -- date when the notice becomes effective
-    end_date DATE NULL, -- date when the notice expires
+    statuses_id BIGINT UNSIGNED NOT NULL,
+    start_date DATE NULL,
+    end_date DATE NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (posted_by) REFERENCES users(id) ON DELETE CASCADE
@@ -248,53 +247,52 @@ CREATE TABLE hrm_noticeboards (
 
 -- Payroll Advanched Salary
 
-CREATE TABLE `hrm_payroll_advanced_salaryes` (
-    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `employee_id` INT UNSIGNED NOT NULL,
-    `amount` DECIMAL(10, 2) NOT NULL,
-    `approved_by` INT UNSIGNED NOT NULL,
-    `approval_date` DATE NOT NULL,
-    `status` ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-    `reason` TEXT,
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`approved_by`) REFERENCES `users`(`id`) ON DELETE CASCADE
+CREATE TABLE hrm_payroll_advanced_salaryes (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT UNSIGNED NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    approved_by INT UNSIGNED NOT NULL,
+    approval_date DATE NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    reason TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
+    FOREIGN KEY (approved_by) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
 
-CREATE TABLE `hrm_payroll_manage_employee_salaryes` (
-    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `employee_id` INT UNSIGNED NOT NULL,
-    `basic_salary` DECIMAL(10, 2) NOT NULL,
-    `housing_allowance` DECIMAL(10, 2) DEFAULT 0.00,
-    `transport_allowance` DECIMAL(10, 2) DEFAULT 0.00,
-    `medical_allowance` DECIMAL(10, 2) DEFAULT 0.00,
-    `bonus` DECIMAL(10, 2) DEFAULT 0.00,
-    `overtime` DECIMAL(10, 2) DEFAULT 0.00,
-    `tax_deductions` DECIMAL(10, 2) DEFAULT 0.00,
-    `total_salary` DECIMAL(10, 2) GENERATED ALWAYS AS (`basic_salary` + `housing_allowance` + `transport_allowance` + `medical_allowance` + `bonus` + `overtime` - `tax_deductions`) STORED,
-    `payroll_month` DATE NOT NULL,
-    `payment_date` DATE NOT NULL,
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON DELETE CASCADE
+CREATE TABLE hrm_payroll_manage_employee_salaryes (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT UNSIGNED NOT NULL,
+    basic_salary DECIMAL(10, 2) NOT NULL,
+    housing_allowance DECIMAL(10, 2) DEFAULT 0.00,
+    transport_allowance DECIMAL(10, 2) DEFAULT 0.00,
+    medical_allowance DECIMAL(10, 2) DEFAULT 0.00,
+    bonus DECIMAL(10, 2) DEFAULT 0.00,
+    overtime DECIMAL(10, 2) DEFAULT 0.00,
+    tax_deductions DECIMAL(10, 2) DEFAULT 0.00,
+    total_salary DECIMAL(10, 2) GENERATED ALWAYS AS (`basic_salary` + `housing_allowance` + `transport_allowance` + `medical_allowance` + `bonus` + `overtime` - `tax_deductions`) STORED,
+    payroll_month DATE NOT NULL,
+    payment_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 
 CREATE TABLE hrm_payroll_employee_salaryes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT NOT NULL,               -- Foreign key reference to employees table
-    basic_salary DECIMAL(15, 2) NOT NULL,    -- Basic salary of the employee
-    bonus DECIMAL(15, 2) DEFAULT 0,         -- Bonus for the employee
-    deductions DECIMAL(15, 2) DEFAULT 0,    -- Deductions for the employee (e.g., taxes, contributions)
-    net_salary DECIMAL(15, 2) NOT NULL,     -- Calculated net salary after deductions and bonuses
-    pay_date DATE NOT NULL,                 -- The date when the salary is paid
+    employee_id INT NOT NULL,
+    basic_salary DECIMAL(15, 2) NOT NULL,
+    bonus DECIMAL(15, 2) DEFAULT 0,
+    deductions DECIMAL(15, 2) DEFAULT 0,
+    net_salary DECIMAL(15, 2) NOT NULL,
+    pay_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
     FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
 );
 
@@ -343,7 +341,7 @@ CREATE TABLE hrm_payslips (
     total_earnings DECIMAL(10,2),
     total_deductions DECIMAL(10,2),
     net_salary DECIMAL(10,2),
-    payment_method VARCHAR (50) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
     generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -364,52 +362,52 @@ CREATE TABLE hrm_payslip_details (
 
  -- Recruitment
 
-CREATE TABLE `hrm_recruitment_candidatelists` (
-    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `first_name` VARCHAR(255) NOT NULL,
-    `last_name` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) UNIQUE NOT NULL,
-    `phone_number` VARCHAR(15) NOT NULL,
-    `address` TEXT,
-    `gender` ENUM('Male', 'Female', 'Other') NOT NULL,
-    `dob` DATE NOT NULL,
-    `position_applied` VARCHAR(255) NOT NULL,
-    `education` VARCHAR(255),
-    `experience` TEXT,
-    `resume` VARCHAR(255), -- stores file path or filename of the uploaded resume
-    `status` ENUM('Applied', 'Interviewed', 'Selected', 'Rejected') DEFAULT 'Applied',
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-Total marks	Selection	Action
-
-
-CREATE TABLE `hrm_recruitment_interviewes` (
+CREATE TABLE hrm_recruitment_candidatelists (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    Candidate id  INT NOT NULL,
-    Job position VARCHAR(255) UNIQUE NOT NULL,
-    Interview  DATE NOT NULL,
-    Viva marks double,
-    Written total marks	double,
-    Mcq total marks	double,
-    Total marks	Selection double,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone_number VARCHAR(15) NOT NULL,
+    address TEXT,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    dob DATE NOT NULL,
+    position_applied VARCHAR(255) NOT NULL,
+    education VARCHAR(255),
+    experience TEXT,
+    resume VARCHAR(255),
+    status ENUM('Applied', 'Interviewed', 'Selected', 'Rejected') DEFAULT 'Applied',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
 
-CREATE TABLE `hrm_Candidate selections` (
+CREATE TABLE hrm_recruitment_interviewes (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    candidate_id  INT NOT NULL,
-    employee_id  INT NOT NULL,
-    job position VARCHAR(255) UNIQUE NOT NULL,
-    selection_terms VARCHAR(255) UNIQUE NOT NULL,
+    candidate_id INT NOT NULL,
+    job_position VARCHAR(255) NOT NULL,
+    interview_date DATE NOT NULL,
+    viva_marks DOUBLE,
+    written_total_marks DOUBLE,
+    mcq_total_marks DOUBLE,
+    total_marks DOUBLE,
+    selection VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+
+CREATE TABLE hrm_candidate_selections (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    candidate_id INT NOT NULL,
+    employee_id INT NOT NULL,
+    job_position VARCHAR(255) NOT NULL,
+    selection_terms VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -424,7 +422,7 @@ CREATE TABLE hrm_training_lists (
     description TEXT,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    duration INT, -- in hours or days
+    duration INT,
     trainer_name VARCHAR(255),
     location VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -433,20 +431,20 @@ CREATE TABLE hrm_training_lists (
 
 
 
-CREATE TABLE `hrm_trainers` (
-    `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `first_name` VARCHAR(255) NOT NULL,
-    `last_name` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) UNIQUE NOT NULL,
-    `phone_number` VARCHAR(20) NULL,
-    `gender` ENUM('male', 'female', 'other') NOT NULL,
-    `date_of_birth` DATE NULL,
-    `hire_date` DATE NOT NULL,
-    `qualification` VARCHAR(255) NULL,
-    `specialization` VARCHAR(255) NULL,
-    `status` ENUM('active', 'inactive') DEFAULT 'active',
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE hrm_trainers (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone_number VARCHAR(20) NULL,
+    gender ENUM('male', 'female', 'other') NOT NULL,
+    date_of_birth DATE NULL,
+    hire_date DATE NOT NULL,
+    qualification VARCHAR(255) NULL,
+    specialization VARCHAR(255) NULL,
+    status ENUM('active', 'inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 

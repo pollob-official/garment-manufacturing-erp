@@ -2,27 +2,46 @@
 
 <div class="header" style="background: #e5e5e5">
     <!-- Logo -->
-    <div class="header-left active">
-        <a href="{{ url('/dashboard') }}" class="logo logo-normal">
-            <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo.png" alt="" /> -->
-            <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar;">M<span
-                    class="text-primary">ERP</span></h1>
-        </a>
-        <a href="{{ url('/dashboard') }}" class="logo logo-white">
-            <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-white.png" alt="" /> -->
-            <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar;">M<span
-                    class="text-primary">ERP</span></h1>
-        </a>
-        <a href="{{ url('/dashboard') }}" class="logo-small">
-            <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-small.png" -->
-            <!-- alt="" /> -->
-            <h4 title="Manufacturing ERP" class="text-center" style="font-family: Sigmar;">M<span
-                    class="text-primary">ERP</span></h4>
-        </a>
-        <a id="toggle_btn" href="javascript:void(0);">
-            <i data-feather="chevrons-left" class="feather-16"></i>
-        </a>
-    </div>
+<div class="header-left active">
+    <a href="{{ url('/dashboard') }}" class="logo logo-normal">
+        <div class="d-flex align-items-center">
+            <svg width="40" height="40" viewBox="0 0 40 40" class="me-2">
+                <rect width="40" height="40" rx="8" fill="#6366f1"/>
+                <path d="M10 20 L20 10 L30 20 L20 30 Z" fill="white" opacity="0.9"/>
+            </svg>
+            <h2 class="logo-text" style="font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -1px; margin: 0; color: #1e293b;">
+                GarM<span class="text-primary">ERP</span>
+            </h2>
+        </div>
+    </a>
+
+    <a href="{{ url('/dashboard') }}" class="logo-small">
+        <div style="background: #6366f1; width: 35px; height: 35px; border-radius: 8px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+            G
+        </div>
+    </a>
+
+    <a id="toggle_btn" href="javascript:void(0);">
+        <i data-feather="chevrons-left" class="feather-16"></i>
+    </a>
+</div>
+
+<style>
+    /* Professional Font Overwrite */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap');
+
+    .logo-text {
+        font-size: 22px;
+        text-transform: uppercase;
+    }
+    .header-left {
+        background: #ffffff;
+        border-right: 1px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+    }
+</style>
     <!-- /Logo -->
 
     <a id="mobile_btn" class="mobile_btn" href="#sidebar">

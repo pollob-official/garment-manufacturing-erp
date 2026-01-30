@@ -104,6 +104,9 @@
                                             class="text-danger">*</span></label>
                                     <textarea name="billing_address" id="billing_address" class="form-control" rows="3"></textarea>
                                 </div>
+                                <span>
+                                    <x-input-error :messages="$errors->get('billing_address')" class="mt-2" />
+                                </span>
                             </div>
                         </div>
 
