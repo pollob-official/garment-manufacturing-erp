@@ -33,7 +33,7 @@
                                     </div>
                                 </td>
                                 <td><a href="javascript:void(0);">{{ $user->email }}</a></td>
-                                <td>01749497676</td>
+                                <td><a href="javascript:void(0);">{{ $user->phone }}</a></td>
                                 <td>{{ $user->role->name }}</td>
                                 <td>{{ Carbon::parse($user->created_at)->format('d M, Y') }}</td>
                                 <td class="action-table-data">

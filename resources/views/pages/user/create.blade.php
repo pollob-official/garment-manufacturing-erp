@@ -35,6 +35,14 @@
                                 </div>
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
+                            <div class="form-login col-md-6">
+                                <label>Phone Number</label>
+                                <div class="form-addons">
+                                    <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+                                    <img src="{{ asset('assets') }}/img/icons/phone.svg" alt="img">
+                                </div>
+                                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-login col-md-6">

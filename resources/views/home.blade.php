@@ -2,132 +2,142 @@
 
 @section('css')
     <style>
+        /* নেগেটিভ মার্জিন সরিয়ে স্বাভাবিক স্পেসিং দেওয়া হয়েছে */
         .homeContents {
-            margin-top: -60px !important;
+            padding: 20px 0;
         }
 
         #clock {
-            font-family: Arial, sans-serif;
-            font-size: 1.3rem;
-            font-weight: bold;
-            padding: 7px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0;
         }
 
         #day {
-            font-size: .8rem;
-
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .avatar {
-            height: 150px !important;
-            width: 150px !important;
+        .clock-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .clock {}
+        .avatar-img {
+            height: 120px !important;
+            width: 120px !important;
+            object-fit: cover;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }
+
+        .stats-card {
+            transition: transform 0.3s ease;
+            border: none;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .widget-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
     </style>
 @endsection
+
 @section('page_content')
-    <div class="container mt-0 mb-4 homeContents">
-        <div class="row align-items-center header-bar">
-            <div class="col-md-8">
-                <h4 class="bg-info p-3">Welcome to Lunea Todd</h4>
+    <div class="container-fluid homeContents">
+        <div class="row align-items-center mb-4 g-3">
+            <div class="col-md-7">
+                <div class="bg-white p-3 rounded shadow-sm border-start border-info border-5">
+                    <h4 class="mb-0 text-dark fw-bold">Welcome back, {{ Auth::user()->name }}!</h4>
+                </div>
             </div>
-            <div class="col-md-2  text-center float-end clock bg-primary rounded">
-                <div id="clock"></div>
-                <div id="day"></div>
-                {{-- <span id="clock"></span> --}}
+
+            <div class="col-md-3 text-center">
+                <div class="clock-box">
+                    <div id="clock">00:00:00 am</div>
+                    <div id="day">Loading...</div>
+                </div>
             </div>
+
             <div class="col-md-2 text-center">
-                <a id="clockButton" class="btn btn-warning btn-lg p-4" href="javascript:void(0);" onclick="clockIn()">Clock In</a>
-                <a id="clockOutButton" class="btn btn-danger btn-lg p-4 " href="javascript:void(0);" onclick="clockOut()"
-                    style="display:none;">Clock Out</a>
+                <button id="clockButton" class="btn btn-warning btn-lg w-100 py-3 fw-bold shadow-sm" onclick="clockIn()">
+                    <i class="fas fa-sign-in-alt me-2"></i>Clock In
+                </button>
+                <button id="clockOutButton" class="btn btn-danger btn-lg w-100 py-3 fw-bold shadow-sm" onclick="clockOut()" style="display:none;">
+                    <i class="fas fa-sign-out-alt me-2"></i>Clock Out
+                </button>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
-            <div class="col">
-                <div class="card text-center bg-warning">
-                    <div class="card-header border-0 pb-0">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0 text-white fs-4 text-primary">Employee</h6>
-                        </div>
-                        <div class="card-header-right">
-                            <div class="btn-group card-option">
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item"><i class="ti ti-edit"></i> Edit</a>
-                                    <form method="POST" action="#">
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <a href="#" class="dropdown-item" title="Delete"><i class="ti ti-trash"></i>
-                                            Delete</a>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="avatar">
-                            <img src="{{asset('assets')}}/img/1740835090_avatar-11.png"
-                                class="img-fluid mx-4 rounded border-2 border-primary" width="200px" height= "200px">
-                        </div>
-                        <h4 class="mt-2 text-primary justify-content-center text-white">Lunea Todd</h4>
-                        <small class="text-white">CEO</small>
-                        <div class="row mt-2">
-                            <div class="col-12">
-                                <a class="btn btn-outline-primary text-white mx-5" href="">#EMP0000002</a>
-                            </div>
+        <div class="row g-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card text-center stats-card bg-primary text-white shadow">
+                    <div class="card-body p-4">
+                        <img src="{{asset('assets')}}/img/pollob.png" class="avatar-img mb-3 shadow">
+                        <h5 class="fw-bold mb-0">Pollob Ahmed Sagor</h5>
+                        <p class="small opacity-75">Chief Executive Officer</p>
+                        <div class="mt-3">
+                            <span class="badge bg-light text-primary px-3 py-2">#EMP0000002</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col">
-                <div class="card rounded-1 bg-danger">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="text-white">
-                                <h2 class="mb-0 text-center">12</h2>
-                                <p class="mb-1">Total Task</p>
-                                <p class="mb-0 mt-2 font-13"><i class="bi bi-arrow-up"></i><span>From last Month</span></p>
-                            </div>
-                            <div class="ms-auto widget-icon bg-info text-white">
-                                <i class="nav-icon fas fa-people-carry"></i>
-                            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card stats-card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-1">Total Task</h6>
+                            <h2 class="mb-0 fw-bold">12</h2>
+                            <p class="text-success small mb-0 mt-2"><i class="fas fa-arrow-up"></i> 15% from last month</p>
+                        </div>
+                        <div class="widget-icon bg-danger text-white">
+                            <i class="fas fa-tasks"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col">
-                <div class="card rounded-1 bg-primary">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="text-white">
-                                <h2 class="mb-0 text-center">5</h2>
-                                <p class="mb-1">Total Project</p>
-                                <p class="mb-0 mt-2 font-13"><i class="bi bi-arrow-up"></i><span>From last Month</span></p>
-                            </div>
-                            <div class="ms-auto widget-icon bg-info text-white">
-                                <i class="fa-solid fa-person-military-pointing"></i>
-                            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card stats-card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-1">Total Project</h6>
+                            <h2 class="mb-0 fw-bold">05</h2>
+                            <p class="text-success small mb-0 mt-2"><i class="fas fa-arrow-up"></i> 2 new this week</p>
+                        </div>
+                        <div class="widget-icon bg-primary text-white">
+                            <i class="fas fa-project-diagram"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col">
-                <div class="card rounded-1 bg-success">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="text-white ">
-                                <h2 class="mb-0 text-center">12</h2>
-                                <p class="mb-1">Total Leave</p>
-                                <p class="mb-0 mt-2 font-13"><i class="bi bi-arrow-up"></i><span>From last Month</span></p>
-                            </div>
-                            <div class="ms-auto widget-icon bg-info text-white">
-                                <i class="nav-icon fas fa-chart-bar"></i>
-                            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card stats-card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted small text-uppercase fw-bold mb-1">Total Leave</h6>
+                            <h2 class="mb-0 fw-bold">12</h2>
+                            <p class="text-muted small mb-0 mt-2">Remaining: 08 days</p>
+                        </div>
+                        <div class="widget-icon bg-success text-white">
+                            <i class="fas fa-calendar-alt"></i>
                         </div>
                     </div>
                 </div>
@@ -137,42 +147,42 @@
 @endsection
 
 @section('script')
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
-
+        // Clock Functionality
         function updateTime() {
             const now = new Date();
-            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; //['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            const day = days[now.getDay()];
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
             let hours = now.getHours();
             const minutes = now.getMinutes().toString().padStart(2, '0');
             const seconds = now.getSeconds().toString().padStart(2, '0');
-            const ampm = hours >= 12 ? 'pm' : 'am';
+            const ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12 || 12;
 
-            document.getElementById('day').textContent = day;
+            document.getElementById('day').textContent = days[now.getDay()];
             document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
         }
 
         setInterval(updateTime, 1000);
         updateTime();
 
-
+        // LocalStorage logic and AJAX
         $(function() {
-            // alert()
-            if (!localStorage.getItem('EmpStatus')) {
-                localStorage.setItem('EmpStatus', "clockOut");
+            // Case-sensitive issues fixed: using all lowercase for status
+            let status = localStorage.getItem('EmpStatus');
+
+            if (!status) {
+                localStorage.setItem('EmpStatus', "clockout");
+                status = "clockout";
             }
 
-            if (localStorage.getItem('EmpStatus') === "ClockOut") {
-                $('#clockButton').show();
-                $('#clockOutButton').hide();
-            } else if (localStorage.getItem('EmpStatus') === "ClockIn") {
+            if (status.toLowerCase() === "clockin") {
                 $('#clockButton').hide();
                 $('#clockOutButton').show();
+            } else {
+                $('#clockButton').show();
+                $('#clockOutButton').hide();
             }
-
         });
 
         function clockIn() {
@@ -184,17 +194,12 @@
                     employee_id: {{ Auth::user()->id }},
                 },
                 success: function(response) {
-                    localStorage.setItem('EmpStatus', "clockIn");
+                    localStorage.setItem('EmpStatus', "clockin");
                     $('#clockOutButton').show();
                     $('#clockButton').hide();
-                    // if (response.status === 'success') {
-                    //     //alert(response.message);
-                    // } else {
-                    //     alert('Error clocking in.');
-                    // }
+                    toastr.success('Clocked In successfully'); // If you use Toastr
                 },
-                error: function(error) {
-                    console.log(error);
+                error: function() {
                     alert('An error occurred. Please try again.');
                 }
             });
@@ -209,15 +214,10 @@
                     employee_id: {{ Auth::user()->id }},
                 },
                 success: function(response) {
-                    console.log(response);
-                    localStorage.setItem('EmpStatus', "clockOut");
+                    localStorage.setItem('EmpStatus', "clockout");
                     $('#clockButton').show();
                     $('#clockOutButton').hide();
-                    // if (response.status === 'success') {
-                    //     //alert(response.message);
-                    // } else {
-                    //     alert('Error clocking out.');
-                    // }
+                    toastr.info('Clocked Out successfully');
                 },
                 error: function() {
                     alert('An error occurred. Please try again.');

@@ -34,6 +34,7 @@ class UserController extends Controller {
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'phone'    => ['required', 'string', 'max:15'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role_id'  => ['required', 'exists:roles,id'],
             'image'    => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
@@ -52,6 +53,7 @@ class UserController extends Controller {
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
+            'phone'    => $request->phone,
             'password' => Hash::make($request->password),
             'role_id'  => $request->role_id,
             'image'    => $imageName,
@@ -88,6 +90,7 @@ class UserController extends Controller {
         $request->validate([
             'name'    => ['required', 'string', 'max:255'],
             'email'   => ['required', 'string', 'lowercase', 'email', 'max:255', "unique:users,email,$id"],
+            'phone'   => ['required', 'string', 'max:20'],
             'role_id' => ['required', 'exists:roles,id'],
         ]);
 
@@ -96,6 +99,7 @@ class UserController extends Controller {
         $user->update([
             'name'    => $request->name,
             'email'   => $request->email,
+            'phone'   => $request->phone,
             'role_id' => $request->role_id,
         ]);
 
